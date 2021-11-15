@@ -62,6 +62,7 @@ This is a good example to start with. Basically the workflow is:
   6. send gpu data to cpu
   7. save result
   8. free memory
+
 3. I suggest using 1d array instead of 2d array. See how indexing works in this case.
 
 4. Use cudaGetDeviceProperties to get maximum threadperblock. Here is an example: https://cpp.hotexamples.com/examples/-/-/cudaGetDeviceProperties/cpp-cudagetdeviceproperties-function-examples.html
