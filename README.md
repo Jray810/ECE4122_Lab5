@@ -34,14 +34,19 @@ and it should be under 1000ms. Here is a post about how to use cuda_event to mea
 Create gpu job with vnc:
 
 pace-vnc-job -l nodes=1:ppn=4:gpus=1 -l walltime=02:00:00 -q coc-ice-gpu
+
 Create gpu job with command line only:
 
 qsub -q coc-ice-gpu -A USERNAME -l nodes=1:ppn=4:gpus=1,walltime=02:00:00 -I
+
 Load necessary module, compile and run by:
 
 module load gcc/9.2.0 cuda/11.1
+
 nvcc *.cu -o executable.out
+
 ./executable.out -N 100 -I 1000
+
 [Guide]
 
 1. You may first implement cpu version of the program. This can help you understand the problem setup, algorithm and you can also compare your solution with cuda version later.
@@ -49,15 +54,14 @@ nvcc *.cu -o executable.out
 2. https://github.com/NVIDIA/cuda-samples/blob/master/Samples/vectorAdd/vectorAdd.cu
 
 This is a good example to start with. Basically the workflow is:
-
-allocate cpu memory for the array
-initialize value in the array
-allocate gpu memory for the array
-send cpu data to gpu
-kernel calculation
-send gpu data to cpu
-save result
-free memory
+  1. allocate cpu memory for the array
+  2. initialize value in the array
+  3. allocate gpu memory for the array
+  4. send cpu data to gpu
+  5. kernel calculation
+  6. send gpu data to cpu
+  7. save result
+  8. free memory
 3. I suggest using 1d array instead of 2d array. See how indexing works in this case.
 
 4. Use cudaGetDeviceProperties to get maximum threadperblock. Here is an example: https://cpp.hotexamples.com/examples/-/-/cudaGetDeviceProperties/cpp-cudagetdeviceproperties-function-examples.html
